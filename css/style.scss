@@ -460,7 +460,7 @@ a, button, .logo{
 
     transition: all .3s ease;
     
-    z-index: 9;
+    z-index: 11;
     width: 100%;
     top: 0;
     left: 0;
@@ -694,6 +694,26 @@ a, button, .logo{
 
         @media (max-width: 590px) {
             display: none;
+        }
+
+        @at-root ._header-scroll &:hover {
+            color: #fff;
+            background-color: $blue-dark;
+        }
+
+        @at-root ._header-scroll &:focus-visible {
+            color: #fff;
+            background-color: $blue-dark;
+        }
+
+        @at-root ._header-white &:hover {
+            color: #fff;
+            background-color: $blue-dark;
+        }
+
+        @at-root ._header-white &:focus-visible {
+            color: #fff;
+            background-color: $blue-dark;
         }
     }
     
@@ -985,6 +1005,7 @@ a, button, .logo{
 
     //.menu-desktop-list__item 
     &__item {
+        display: block;
         font-weight: 400;
         font-size: 16px;
         line-height: 18px;
@@ -1045,9 +1066,13 @@ a, button, .logo{
     border-radius: 5px;
     position: absolute;
     width: 110px;
-    top: 26px;
+    top: 100%;
     left: -2px;
     z-index: 1;
+
+    @at-root .menu-desktop-list .menu-desktop-list__item.menu__item__with__dop:focus-visible + .menu-dropdown {
+        display: block;
+    }
 
     li{
         color: $blue-dark;
@@ -2409,9 +2434,10 @@ a, button, .logo{
     &.banner-donors {
         position: relative;
         z-index: 0;
+        display: flex;
+        align-items: center;
 
         @media (max-width: 830px) {
-            display: flex;
             align-items: flex-end;
             padding: 237px 0 60px;
         }
@@ -2465,6 +2491,37 @@ a, button, .logo{
 
                     @media (max-width: 830px) {
                         margin-top: 16px;
+                    }
+                }
+            }
+
+            .emoji {
+                span {
+                    position: relative;
+                    display: inline-block;
+                    width: 89px;
+                    height: 42px;
+                    margin-left: 3px;
+
+                    @media (max-width: 830px) {
+                        width: 40px;
+                        height: 15px;
+                    }
+    
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                        width: 100%;
+                        height: 100%;
+    
+                        background-image: url(../assets/img/donors/label-love.svg);
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        background-position: center 100%;
+
+                        transform: translate(-7px, 4px);
                     }
                 }
             }
@@ -5950,16 +6007,40 @@ a, button, .logo{
             text-align: left;
         }
 
-        p {
-            margin-bottom: 20px;
+        > * + * {
+            margin-top: 12px;
+        }
 
-            @media (max-width: 830px) {
-                margin-bottom: 10px;
-            }
+        ul {
+            list-style-type: disc;
+            list-style-position: inside;
 
-            &:last-child {
-                margin-bottom: 0;
+            > * + * {
+                margin-top: 12px;
             }
+        }
+
+        ol {
+            list-style-type: decimal;
+            list-style-position: outside;
+
+            > * + * {
+                margin-top: 12px;
+            }
+        }
+
+        li {
+            text-align: left;
+
+            &::marker {
+                display: block;
+                width: 4px;
+                height: 4px;
+            }
+        }
+
+        span {
+            font-weight: 700;
         }
     }
 }
@@ -6086,8 +6167,8 @@ a, button, .logo{
 
         @media (max-width: 830px) {
             font-weight: 300;
-            font-size: 16px;
-            line-height: 18px;
+            font-size: 18px;
+            line-height: 20px;
         }
 
         p {
@@ -6402,7 +6483,9 @@ a, button, .logo{
     background-image: url(../assets/img/team/omg-banner-bg.png);
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: center center;
+    background-position: 50% 50%;
+
+    will-change: background;
 
     &::before {
         content: '';
@@ -6427,6 +6510,34 @@ a, button, .logo{
         height: 100%;
         justify-content: center;
         align-items: center;
+
+        @media (max-width: 830px) {
+            flex-direction: column;
+        }
+    }
+
+    //.banner-team__title__container 
+    &__title__container {
+        @media (max-width: 830px) {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    //.banner-team__swipe 
+    &__swipe {
+        display: none;
+
+        @media (max-width: 830px) {
+            display: block;
+            width: 64px;
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
     }
 
     h1.banner-team__title {
@@ -9345,6 +9456,19 @@ a, button, .logo{
                 margin-top: 32px;
             }
 
+            &._links {
+                margin-top: 32px;
+                justify-content: center;
+
+                > * + * {
+                    margin-left: 14.976%;
+
+                    @media (max-width: 830px) {
+                        margin-left: 38px;
+                    }
+                }
+            }
+
             &._multiple {
                 flex-wrap: wrap;
                 justify-content: space-between;
@@ -9400,6 +9524,29 @@ a, button, .logo{
                 @media (max-width: 830px) {
                     padding-top: 30px;
                 }
+            }
+
+            .link {
+                transition: color 0.3s ease;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16px;
+                
+                &.register {
+                    text-decoration: underline;
+                    color: #141414;
+
+                }
+
+                &.recovery {
+                    color: #006ED2;
+                }
+
+                &:hover,
+                &:focus-visible {
+                    color: #FFB11A;
+                }
+
             }
         }
 
